@@ -1,0 +1,12 @@
+[33mf7cdfaa2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: commit: Recovered UI code
+[33m17eabfb9[m HEAD@{1}: reset: moving to origin/main
+[33m771aed3b[m HEAD@{2}: commit: My local changes before pulling
+[33m1fff107c[m HEAD@{3}: commit: Removed venv and added gitignore
+[33m86e12764[m HEAD@{4}: commit: Ui improved
+[33m9cd57039[m HEAD@{5}: commit: Updated project files
+[33m640b9631[m HEAD@{6}: commit: remove venv and add gitignore
+[33m6b4c156c[m HEAD@{7}: commit: Remove venv from repo
+[33mee0d5728[m HEAD@{8}: commit (merge): frontend and backend integrated
+[33me2cf1af2[m HEAD@{9}: commit: forntend changed
+[33mb0cf5ae6[m HEAD@{10}: commit: FrontEnd added
+[33mbe8e08af[m HEAD@{11}: commit: minor changes
