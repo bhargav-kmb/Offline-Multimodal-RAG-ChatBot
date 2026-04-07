@@ -7,10 +7,8 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import pickle
 import faiss
-import ollama 
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
-
 
 EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -57,7 +55,7 @@ def chunk_text(text, chunk_size=500, overlap=100):
     return chunks
 
 
-# ------------------ PROCESS + STORE ------------------
+# ------------------ PROCESS ------------------
 def process_document(file_path):
     base_name = os.path.splitext(os.path.basename(file_path))[0]
 
@@ -67,10 +65,8 @@ def process_document(file_path):
     chunk_path = f"storage/{base_name}_chunks.pkl"
     faiss_path = f"storage/{base_name}.index"
 
-    # Load existing
-    if os.path.exists(embed_path) and os.path.exists(chunk_path) and os.path.exists(faiss_path):
-        print("Loading existing FAISS index")
-
+   
+    if os.path.exists(embed_path) and os.path.exists(faiss_path):
         embeddings = np.load(embed_path)
         index = faiss.read_index(faiss_path)
 
@@ -78,8 +74,6 @@ def process_document(file_path):
             final_chunks = pickle.load(f)
 
         return final_chunks, embeddings, index
-
-    print("Processing document")
 
     documents = parse_document(file_path)
     final_chunks = []
@@ -94,12 +88,13 @@ def process_document(file_path):
             })
 
     texts = [c["content"] for c in final_chunks]
-    embeddings = EMBED_MODEL.encode(texts, batch_size=16)
+
+
+    embeddings = EMBED_MODEL.encode(texts, batch_size=32, normalize_embeddings=True)
 
     dimension = embeddings.shape[1]
     index = faiss.IndexFlatL2(dimension)
     index.add(np.array(embeddings))
-
 
     np.save(embed_path, embeddings)
     faiss.write_index(index, faiss_path)
@@ -107,82 +102,18 @@ def process_document(file_path):
     with open(chunk_path, "wb") as f:
         pickle.dump(final_chunks, f)
 
-    print("Stored in FAISS")
-
     return final_chunks, embeddings, index
 
 
-# ------------------ RAG ------------------
-def generate_answer(query, index, chunks, top_k=5):
+# ------------------ RETRIEVE ------------------
+def retrieve_context(query, index, chunks, top_k=3):
+    query_embedding = EMBED_MODEL.encode([query], normalize_embeddings=True)
 
-    query_embedding = EMBED_MODEL.encode([query])
     D, I = index.search(np.array(query_embedding), top_k)
 
     retrieved = [chunks[i] for i in I[0]]
 
- 
     context = "\n\n".join([c["content"] for c in retrieved])
-    context = context[:3000]
+    context = context[:1500]
 
-
-    prompt = f"""
-You are a helpful assistant.
-
-Answer ONLY using the context.
-No local documents are available. Answer based on general knowledge
-
-Context:
-{context}
-
-Question:
-answer only in 10-15 lines.
-{query}
-
-Answer:
-"""
-
-    response = ollama.chat(
-        model="llama3",
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    answer = response["message"]["content"]
-
-    return answer, retrieved
-
-
-# ------------------ RUN ------------------
-if __name__ == "__main__":
-    file_path = "unit2entp.pdf"
-
-    chunks, embeddings, index = process_document(file_path)
-
-    print("Total chunks:", len(chunks))
-
-    # while True:
-    #     query = input("\nAsk something (type exit): ")
-
-    #     if query.lower() == "exit":
-    #         break
-
-    #     answer, sources = generate_answer(query, index, chunks)
-
-    #     print("\n Answer:\n", answer)
-
-    #     print("\n Sources:")
-    #     for s in sources:
-    #         print(f"Page {s['page']}")
-    #         print(s["content"][:150])
-    #         print("-" * 40)
-# query = "what is entrepreneurship"
-# answer, results = generate_answer(query, index, chunks)
-# print("\n Answer:\n", answer)
-
-# print("\n Sources:\n")
-# for r in results:
-#     print({
-#         "content": r["content"],
-#         "page": r["page"],
-#         "source": r["source"]
-#     })
-#     print("-" * 50)
+    return context, retrieved

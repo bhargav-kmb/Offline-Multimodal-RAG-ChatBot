@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Chat from "./chat";
+import Chat from "./Chat";
 import ChatSidebar from "./Chatsidebar";
 
 function App() {
@@ -8,20 +8,18 @@ function App() {
   const [currentChat, setCurrentChat] = useState([]);
 
   const newChat = () => {
-
     if (currentChat.length > 0) {
-      setChats([...chats, currentChat]);
+      setChats(prev => [...prev, currentChat]);
     }
-
     setCurrentChat([]);
   };
 
   return (
-    <div>
+    <div className="d-flex">
 
       <ChatSidebar
         chats={chats}
-        setCurrentChat={setCurrentChat}
+        setCurrentChat={(chat) => setCurrentChat([...chat])}
         newChat={newChat}
       />
 

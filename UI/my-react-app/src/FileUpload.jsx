@@ -1,9 +1,7 @@
-import { useState } from "react";
-
 export default function FileUpload() {
-  const [file, setFile] = useState(null);
 
-  const uploadFile = async () => {
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
@@ -14,19 +12,10 @@ export default function FileUpload() {
       body: formData,
     });
 
-    alert("File uploaded & processed!");
+    alert("File uploaded successfully!");
   };
 
   return (
-    <>
-      <input
-        type="file"
-        onChange={(e) => setFile(e.target.files[0])}
-        className="form-control"
-      />
-      <button className="btn btn-secondary mt-1" onClick={uploadFile}>
-        Upload
-      </button>
-    </>
+    <input type="file" onChange={handleUpload} />
   );
 }
