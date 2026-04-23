@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Chat from "./Chat";
+import Chat from "./chat";
 import ChatSidebar from "./Chatsidebar";
 
 function App() {
