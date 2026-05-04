@@ -30,12 +30,20 @@ Design and build a multimodel Retrieval-Augmented Generation (RAG) system levera
 
 ---
 ## Results
- -Text-based Queries (PDF/DOCX): ~80–85% answer accuracy
- -Image Understanding (LLaVA): ~80–85% semantic accuracy
- -Scanned Documents (OCR-based): ~75–80% accuracy depending on image quality
- -Response Time: ~2–5 seconds (GPU enabled)
- -Retrieval Quality: Relevant context chunks retrieved using FAISS similarity search
-- Embedding Cache Efficiency: Near-instant response for previously uploaded documents
+-Text-based Queries (PDF/DOCX): ~80–85% answer accuracy
+
+-Image Understanding (LLaVA): ~80–85% semantic accuracy
+
+-Scanned Documents (OCR-based): ~75–80% accuracy depending on image quality
+
+-Response Time: ~2–5 seconds (GPU enabled)
+
+-Retrieval Quality: Relevant context chunks retrieved using FAISS similarity search
+
+-Embedding Cache Efficiency: Near-instant response for previously uploaded documents
+
+
+
   
 ## 🗂️ Project Structure
 
