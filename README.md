@@ -3,7 +3,7 @@
 
 
 ## Problem statement 
-### Problem statement id: SIH25231
+### Problem statement ID: SIH25231
 Design and build a multimodel Retrieval-Augmented Generation (RAG) system leveraging a Large Language Model (LLM) for OFFLINE mode that can ingest, index, and query diverse data formats such as DOC, PDF, Images and voice recordings within a unified semantic retrieval framework
 
 ---
@@ -207,3 +207,9 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 - The chatbot works without any document uploaded as a general-purpose assistant
 
 ---
+##  Contact
+
+-  Mohan Bhargav
+-  mohankmb55@gmail.com
+-  For any queries contact further information, please do not hesitate to contact me.
+
