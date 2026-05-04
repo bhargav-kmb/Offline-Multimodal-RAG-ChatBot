@@ -163,11 +163,8 @@
 
 
 import os
-
-
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 os.environ["HF_DATASETS_OFFLINE"] = "1"
-
 import fitz
 import pytesseract
 from docx import Document
@@ -183,7 +180,6 @@ EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
 EMBED_MODEL.max_seq_length = 256
 
 
-# ------------------ PARSE ------------------
 def parse_document(file_path):
     ext = os.path.splitext(file_path)[1].lower()
     chunks = []
@@ -237,8 +233,6 @@ def chunk_text(text, chunk_size=500, overlap=100):
 
     return chunks
 
-
-# ------------------ PROCESS ------------------
 def process_document(file_path):
     base_name = os.path.splitext(os.path.basename(file_path))[0]
 
@@ -286,7 +280,7 @@ def process_document(file_path):
     return final_chunks, embeddings, index
 
 
-# ------------------ RETRIEVE ------------------
+
 def retrieve_context(query, index, chunks, top_k=3):
     query_embedding = EMBED_MODEL.encode([query], normalize_embeddings=True)
 

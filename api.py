@@ -160,7 +160,7 @@ IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".bmp", ".tiff", ".webp"}
 DOCUMENT_EXTENSIONS = {".pdf", ".docx", ".doc"}
 
 
-# ------------------ UPLOAD ------------------
+
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     global GLOBAL_INDEX, GLOBAL_CHUNKS
@@ -190,7 +190,6 @@ async def upload_file(file: UploadFile = File(...)):
     }
 
 
-# ------------------ CHAT ------------------
 @app.post("/chat")
 async def chat(query: dict):
     global GLOBAL_INDEX, GLOBAL_CHUNKS
@@ -222,7 +221,7 @@ async def chat(query: dict):
 
             return StreamingResponse(stream_image_response(), media_type="text/event-stream")
 
-        # ✅ Normal RAG or general chat
+      
         if GLOBAL_INDEX is not None:
             context, retrieved = retrieve_context(
                 user_query, GLOBAL_INDEX, GLOBAL_CHUNKS
