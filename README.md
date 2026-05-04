@@ -9,7 +9,11 @@ Design and build a multimodel Retrieval-Augmented Generation (RAG) system levera
 ---
 <img width="2859" height="1476" alt="Screenshot 2026-05-03 123323" src="https://github.com/user-attachments/assets/d9dc3c1d-3063-426a-91ed-80b4d8a50423" />
 
+---
 <img width="2868" height="1469" alt="Screenshot 2026-05-03 124532" src="https://github.com/user-attachments/assets/13da1993-16db-4e11-aa2d-9fb12c5c049b" />
+
+---
+
 <img width="2875" height="1453" alt="Screenshot 2026-05-03 124733" src="https://github.com/user-attachments/assets/97d17010-3a10-4a86-b618-6257fe440e3d" />
 
 
