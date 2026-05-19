@@ -46,10 +46,10 @@ export default function Chat({ currentChat, setCurrentChat }) {
     try {
       const res = await fetch("http://localhost:8000/upload", { method: "POST", body: formData });
       const data = await res.json();
-      setUploadStatus(data.error ? `❌ ${data.error}` : `✅ ${file.name} uploaded!`);
+      setUploadStatus(data.error ? ` ${data.error}` : ` ${file.name} uploaded!`);
       setTimeout(() => setUploadStatus(""), 4000);
     } catch {
-      setUploadStatus("❌ Upload failed");
+      setUploadStatus(" Upload failed");
       setTimeout(() => setUploadStatus(""), 3000);
     }
     setUploading(false);
